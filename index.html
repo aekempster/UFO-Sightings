@@ -1,78 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>UFO Finder</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.3/d3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <title>UFO Sightings</title>
 </head>
 
 <body>
-  <div class="wrapper">
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">UFO Sightings
-            <img class="nav-ufo" src="static/images/ufo.svg">
-          </a>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>UFO SIGHTINGS</h1>
+            <p>Reported UFO sightings from 2010-2014</p>
+            <a href="#table">
+            </a>
         </div>
-      </div>
-    </nav>
-    <div class="hero text-center">
-      <h1>UFO Sightings</h1>
     </div>
+
     <div class="container">
-      <div class="row margin-top-50">
-        <div class="col-md-2">
-          <aside class="filters">
-            <div class="panel panel-default">
-              <div class="panel-heading">Filter Search</div>
-              <div class="panel-body">
-                <form>
-                  <div class="form-group">
-                    <ul class="list-group" id="filters">
-                      <li class="filter list-group-item">
-                        <label for="date">Enter a Date to filter your search</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
+        <div class="row">
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+              <h4>Search By City</h4>
+              <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for city" id="cityInput">
+                  <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" id="cityButton">Search</button>
+                  </span>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <h4>Search by State/Province</h4>
+              <select name="Countries" id="stateSelect" class="form-control">
+              </select>
+          </div>
+            <div class="col-md-4">
+                <h4>Search by Country</h4>
+                <select name="Countries" id="countrySelect" class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Search By Date</h4>
+                <div class="input-group">
+                    <input type="date" class="form-control" placeholder="Select a Date to Search" id="dateInput">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="dateButton">Search</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>Search by UFO Shape</h4>
+                <select name="Shapes" id="shapeSelect" class="form-control">
+                </select>
+            </div>
+            <div class="col-md-4 align-bottom" id="clear-div">
+                <button class="btn btn-primary btn-md" id="clearSelections">Clear Selections</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a name="table"></a>
+                <div class="panel panel-default table-panel">
+                    <div class="panel-heading"><b>UFO Sightings</b></div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sighting #</th>
+                                <th>Date</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Country</th>
+                                <th>Shape</th>
+                                <th>Duration</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+                <nav aria-label="Page navigation" id="pagination-div">
+                    <ul class="pagination pagination-lg">
+                      <li id="firstLi">
+                        <a href="#table" id="firstPage" aria-label="First">
+                          &laquo;&laquo;
+                        </a>
+                      </li>
+                      <li id="prevLi"><a href="#table" id="prevPage">1</a></li>
+                      <li id="thisLi"><a href="#table" id="thisPage">2</a></li>
+                      <li id="nextLi"><a href="#table" id="nextPage">3</a></li>
+                      <li id="lastLi">
+                        <a href="#table" id="lastPage" aria-label="Last">
+                          &raquo;&raquo;
+                        </a>
                       </li>
                     </ul>
-                  </div>
-                  <button id="filter-btn" type="submit" class="btn btn-default">Submit</button>
-                </form>
-              </div>
-            </div>
-          </aside>
-        </div>
-        <div class="col-md-10">
-          <div id="table-area" class="">
-            <table id="ufo-table" class="table table-striped">
-              <thead>
-                <tr>
-                  <th class="table-head">Date</th>
-                  <th class="table-head">City</th>
-                  <th class="table-head">State</th>
-                  <th class="table-head">Country</th>
-                  <th class="table-head">Shape</th>
-                  <th class="table-head">Duration</th>
-                  <th class="table-head">Comments</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+                  </nav>
     </div>
-    <footer class="footer">
-      <span class="bottom">UFO Sightings</span>
-    </footer>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
-  <script src="static/js/data.js"></script>
-  <script src="static/js/app.js"></script>
+    <script src="data.js" type="text/javascript"></script>
+    <script src="table.js" type="text/javascript"></script>
 </body>
-
 </html>
